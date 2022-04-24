@@ -44,8 +44,7 @@ const checkOrder = () => {
     }
   }
   if(clickedOrder.length == order.length) {
-    alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível!`);
-    nextLevel();
+    gameAlert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível!`, nextLevel);
   }
 }
 
@@ -77,23 +76,32 @@ const nextLevel = () => {
 }
 
 const gameOver = () => {
-  alert(`Pontuação: ${score}\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo.`);
-  order = [];
-  clickedOrder = [];
+  gameAlert(`Pontuação: ${score}\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo.`, playGame);
+}
 
-  playGame();
+const elementAlert = document.querySelector('.alert');
+const alertButton = elementAlert.querySelector('.alert__button');
+
+
+const gameAlert = (message, callback = null) => {
+  elementAlert.querySelector('.alert__message').textContent = message;
+  elementAlert.style.visibility = 'visible';
+  
+  alertButton.onclick = () => {
+    if (elementAlert.style.visibility === 'visible') {
+      elementAlert.style.visibility = 'hidden';
+      if (callback) callback();
+    }
+  }
+
 }
 
 const playGame = () => {
+  order = [];
+  clickedOrder = [];
   score = 0;
-  alert(`Bem-vindo ao Gênesis! Iniciando novo jogo.`);
-  nextLevel();
+  gameAlert(`Bem-vindo ao Gênesis! Iniciando novo jogo.`, nextLevel);
 }
-
-// green.addEventListener('click', click(0));
-// red.addEventListener('click', click(1));
-// yellow.addEventListener('click', click(2));
-// blue.addEventListener('click', click(3));
 
 green.onclick = () => click(0);
 red.onclick = () => click(1);
