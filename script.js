@@ -33,7 +33,7 @@ const lightColor = (element, number) => {
 
   setTimeout(() => {
     element.classList.remove('selected');
-  });
+  }, number * 2);
 }
 
 const checkOrder = () => {
